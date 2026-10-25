@@ -9,14 +9,22 @@ class AutoDateTimeField(models.DateTimeField):
         return value
 
 
+STATUS_CHOICES = [
+    ("Pendiente", "Pendiente"),
+    ("En tránsito", "En tránsito"),
+    ("Entregada", "Entregada"),
+]
+
+
 class Guia(models.Model):
     id = models.AutoField(primary_key=True)
     trackingNumber = models.CharField(max_length=15, unique=True)
+    recipient = models.CharField(max_length=100, blank=True)
     origin = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
     createdAt = models.DateField(default=timezone.now)
     updatedAt = AutoDateTimeField(default=timezone.now)
-    currentStatus = models.CharField(max_length=20)
+    currentStatus = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Pendiente")
 
     class Meta:
         db_table = "Guide"
