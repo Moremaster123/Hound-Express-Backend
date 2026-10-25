@@ -42,6 +42,7 @@ class Estatus(models.Model):
 
     class Meta:
         db_table = "StatusHistory"
+        ordering = ["timestamp", "id"]
 
     def __str__(self):
         return f"{self.guideId} - {self.status}"
